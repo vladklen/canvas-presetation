@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          Canvas
+          <aside class="notes">Hello everyone, My name Vladislav Klenovski and today we are going to speak about one interesting thing - calling Canvas. During this presentation we discuss some history aspects, basic features and where and how it can be used in practice.</aside>
+        </section>
+        <section>
+          <section>So, what is Canvas?</section>
+          <section>Canvas is a 2D<span class="highlight-red">drawing</span>API recently added to HTML and supported by most browsers. Canvas allows you to draw anything you want directly in the web browser without the use of plugins like Flash or Java.</section>
+          <aside class="notes">The principle of creating ../images with canvas is a bit similar to SVG. But unlike SVG canvas, we only draw with JavaScrypt. Also Canvas is bitmap and SVG is Vector</aside>
+          <section>
+            Difference between SVG and HTML5 Canvas:
+            <ul>
+              <li class="fragment">Canvas - Raster based image</li>
+              <li class="fragment">Canvas gives better performance with smaller surface or larger number of objects.</li>
+              <li class="fragment">Canvas can be modified through script only.</li>
+              <li class="fragment">SVG is a vector API that draws shapes. Each shape has an object that you can attach event handlers to.</li>
+            </ul>
+          </section>
+          <section>
+            Canvas was First introduced in WebKit by Apple for the macOS Dashboard in 2004. Today, all major browsers support it.
+            <img data-src="../images/canIUse.png" />
+            <aside class="notes">So as you can see all modern and old browsers support Canvas, even IE9 support.</aside>
+          </section>
+        </section>
+        <section>
+          <section>Let's start drawing!</section>
+          <section>
+            The "canvas" element:
+            <code>
+              <pre><code><canvas id="canvas" width="150" height="150"></canvas></code></pre>
+              <ul>
+                <li>width and height : These are both optional and can also be set using DOM properties. When no width and height attributes are specified, the canvas will initially be <strong style="color: rgb(123, 123, 202)">300 pixels</strong> wide and <strong style="color: rgb(123, 123, 202)">150 pixels</strong> hight.</li>
+                <li>id: isn't required but it's very useful, because this makes it much easier to identify it in a script.</li>
+              </ul>
+            </code>
+          </section>
+          <section>
+            Find Canvas element in JS and access the drawing context:
+            <pre><code class="hljs" data-trim data-line-numbers="2,3">
+						<canvas id="canvas" width="150" height="150"></canvas>
+						const canvas = document.getElementById("tutorial");
+						const ctx = canvas.getContext("2d");
+					</code></pre>
+            <p>The 2D Context provides objects, methods, and properties to draw and manipulate graphics on a canvas drawing surface.</p>
+            <aside class="notes">The first line in the script retrieves the node in the DOM representing the canvas element by calling the document.getElementById() method. Once you have the element node, you can access the drawing context using its getContext() method.</aside>
+          </section>
+          <section>
+            The grid
+            <p>Before we can start drawing, we need to talk about the canvas grid or coordinate space. Our HTML skeleton from the previous page had a canvas element 150 pixels wide and 150 pixels high.</p>
+            <p>Normally 1 unit in the grid corresponds to 1 pixel on the canvas. The origin of this grid is positioned in the top left corner at coordinate (0,0). All elements are placed relative to this origin. So the position of the top left corner of the blue square becomes x pixels from the left and y pixels from the top, at coordinate (x,y).</p>
+            <img data-src="../images/canvas_grid.png" />
+          </section>
+          <section>Now we can start draw simple shapes!</section>
+        </section>
+        <section>
+          <section>1.Rectangle</section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="4,5">
+						<canvas id="canvas" width="150" height="150"></canvas>
+						const canvas = document.getElementById("tutorial");
+						const ctx = canvas.getContext("2d");
+						ctx.fillStyle = "gray";
+						ctx.fillRect(25, 25, 150, 100);
+						</code></pre>
+            <img class="fragment" height="300px" data-src="../images/rectangle.png" />
+            <aside class="notes">
+              Painting on canvas is like painting on an white sheet. At the beginning we choose the color with which we will draw, and then we draw the shape. In this case, at the beginning we set the color of the brush to gray using the property fillStyle and then use fillrect to create a rectangle. Two first numbers - coordinates of start position, third and fourth - width and height of figure.
+            </aside>
+          </section>
+          <section>2.Empty rectangle with border</section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="4-6">
+						<canvas id="canvas" width="150" height="150"></canvas>
+						const canvas = document.getElementById("tutorial");
+						const ctx = canvas.getContext("2d");
+						ctx.strokeStyle = 'blue';
+						ctx.lineWidth = 4;
+						ctx.strokeRect(25, 150, 100, 100);
+						</code></pre>
+            <img class="fragment" height="300px" data-src="../images/empty_rectangle.png" />
+          </section>
+          <section>3.Filled rectangle with border</section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="4-8">
+						<canvas id="canvas" width="150" height="150"></canvas>
+						const canvas = document.getElementById("tutorial");
+						const ctx = canvas.getContext("2d");
+						ctx.fillStyle = 'green';
+						ctx.strokeStyle = 'red';
+						ctx.lineWidth = 10;
+						ctx.fillRect(150, 50, 230, 230);
+						ctx.strokeRect(150, 50, 230, 230);
+						</code></pre>
+            <img class="fragment" height="300px" data-src="../images/filled_rectangle.png" />
+          </section>
+          <section>4.Clear rectangle</section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="4-8">
+						clearRect(x, y, canvas.width, canvas.height)
+						</code></pre>
+            <p>This code snippet erases the entire canvas. This is commonly required at the start of each frame in an animation. The dimensions of the cleared area are set to equal the <strong style="color: rgb(123, 123, 202)">canvas</strong> element's width and height attributes.</p>
+            <aside class="notes">ClearRect is very useful method. When you draw on canvas you cant select item and remove it, so each frame you create a new drawing. This is similar to old cartoon creation, when you create a lot of drawings with elements and move them px by px.</aside>
+          </section>
+          <section>5.Path</section>
+          <section>
+            Canvas only directly supports the rectangle shape. To draw any other shape you must draw it yourself using a path. Paths are shapes created by a bunch of straight or curved line segments. In Canvas you must first define a path with beginPath(), then you can fill it, stroke it, or use it as a clip. You define each line segment with functions like moveTo(), lineTo(), and bezierCurveTo().
+            This example draws a shape with a move to, followed by a bezier curve segment, then some lines. After creating the path it fills and strokes it.
+          </section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="1|2|3|4|5|6|7|8|9|10|11">
+							ctx.fillStyle = 'red';
+							ctx.beginPath();
+							ctx.moveTo(10,30);
+							ctx.bezierCurveTo(50,90,159,-30,200,30);
+							ctx.lineTo(200,90);
+							ctx.lineTo(10,90);
+							ctx.closePath();
+							ctx.fill();
+							ctx.lineWidth = 4;
+							ctx.strokeStyle = 'black';
+							ctx.stroke();    
+							</code></pre>
+            <img height="200px" data-src="../images/path.png" />
+            <p>You can practice bezier lines at <a target="_blank" href="https://bezier.method.ac/">link</a></p>
+          </section>
+          <section>6.Circle</section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="1">
+							arc(x, y, radius, startAngle, endAngle, counterclockwise)
+						</code></pre>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="1-7">
+							let degreesStart = 0;
+							let radiansStart = (Math.PI / 180) * degreesStart;
+							let degreesEnd = 135;
+							let radiansEnd = (Math.PI / 180) * degreesEnd;
+							ctx.beginPath();
+							ctx.arc(100, 350, 80, radiansStart, radiansEnd);
+							ctx.stroke();
+						</code></pre>
+            <img class="fragment" height="300px" data-src="../images/half_circle.png" />
+          </section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers="1-7">
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;
+							ctx.beginPath();
+							ctx.arc(500, 350, 80, 0, 2 * Math.PI);
+							ctx.fill();
+							ctx.stroke();
+						</code></pre>
+            <img class="fragment" height="300px" data-src="../images/full_circle.png" />
+          </section>
+          <section>7.Text</section>
+          <section>
+            <pre class="fragment"><code class="hljs">
+							let theString = 'Hello HTML5 Canvas!';
+
+            	ctx.font = '30px Georgia';
+            	ctx.fillStyle = 'blue';
+            	ctx.fillText(theString, 20, 50);
+
+            	ctx.font = '30px Verdana';
+            	ctx.strokeStyle = 'red';
+            	ctx.strokeText(theString, 20, 100);
+
+            	ctx.font = 'bold 52px Arial';
+            	ctx.strokeStyle = 'blue';
+            	ctx.fillStyle = 'red';
+            	ctx.lineWidth = 5;
+            	ctx.strokeText(theString, 20, 175);
+            	ctx.fillText(theString, 20, 175);
+							</code></pre>
+            <img height="250px" data-src="../images/text.png" />
+          </section>
+          <section>8. Save and Restore</section>
+          <section>
+            <pre class="fragment"><code class="hljs" data-trim data-line-numbers>
+							const canvas = document.getElementById("canvas");
+							const ctx = canvas.getContext("2d");
+
+							// Save the current state
+							ctx.save();
+
+							ctx.fillStyle = "green";
+							ctx.fillRect(10, 10, 100, 100);
+
+							// Restore to the state saved by the most recent call to save()
+							ctx.restore();
+
+							ctx.fillRect(150, 40, 100, 100);
+							</code></pre>
+            <img class="fragment" height="250px" data-src="../images/SaveAndRestore.png" />
+            <aside class="notes">This example uses the save() method to save the current state and restore() to restore it later, so that you are able to draw a rect with the current state later.</aside>
+          </section>
+          <section>9. Canvas Animation</section>
+          <section>
+            <pre><code class="hljs" data-trim data-line-numbers>
+							var x = 0; 
+							function drawIt() { 
+   						window.requestAnimFrame(drawIt); 
+  						var canvas = document.getElementById('canvas'); 
+    					var c = canvas.getContext('2d'); 
+    					c.fillStyle = "red"; 
+    					c.fillRect(x,100,200,100); 
+    					x+=5; 
+							} 
+							window.requestAnimFrame(drawIt); 
+
+							var x = 0;
+      				function drawItTwo() {
+        			window.requestAnimFrame(drawItTwo);
+        			var canvas = document.getElementById('canvas');
+        			var c = canvas.getContext('2d');
+        			c.clearRect(0, 0, canvas.width, canvas.height);
+        			c.fillStyle = 'red';
+       				c.fillRect(x, 100, 200, 100);
+        			if (x > canvas.width) {
+          		x = 0;
+        			} else {
+         			x += 5;
+        			}
+						</code></pre>
+            <ul style="list-style-type: none">
+              <li><canvas width="650" height="100" id="canvas"></canvas></li>
+              <li><button id="startOne">FirstAnimation</button></li>
+              <li><button id="startTwo">SecondAnimation</button></li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>Useful links:</h3>
+          <ul class="fragment">
+            <li class="fragment"><a target="_blank" href="https://joshondesign.com/p/books/canvasdeepdive/toc.html">joshondesign.com</a></li>
+            <li class="fragment"><a target="_blank" href="https://www.w3schools.com/tags/ref_canvas.asp">w3schools</a></li>
+            <li class="fragment"><a target="_blank" href="https://developer.mozilla.org/ru/docs/Web/API/Canvas_API">MDN</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+      window.requestAnimFrame = (function () {
+        return (
+          window.requestAnimationFrame ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame ||
+          window.oRequestAnimationFrame ||
+          window.msRequestAnimationFrame ||
+          function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+          }
+        );
+      })();
+      var x = 0;
+      function drawIt() {
+        console.log(1);
+        window.requestAnimFrame(drawIt);
+        var canvas = document.getElementById('canvas');
+        var c = canvas.getContext('2d');
+        c.fillStyle = 'red';
+        c.fillRect(x, 0, 200, 100);
+        x += 5;
+      }
+
+      var x = 0;
+      function drawItTwo() {
+        window.requestAnimFrame(drawItTwo);
+        var canvas = document.getElementById('canvas');
+        var c = canvas.getContext('2d');
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        c.fillStyle = 'red';
+        c.fillRect(x, 0, 200, 100);
+        if (x > canvas.width) {
+          x = 0;
+        } else {
+          x += 5;
+        }
+      }
+
+      const startOne = document.getElementById('startOne');
+      const startTwo = document.getElementById('startTwo');
+      startOne.addEventListener('click', () => drawIt());
+      startTwo.addEventListener('click', () => drawItTwo());
+    </script>
+  </body>
+</html>
