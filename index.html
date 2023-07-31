@@ -23,7 +23,7 @@
         <section>
           <section>So, what is Canvas?</section>
           <section>Canvas is a 2D<span class="highlight-red">drawing</span>API recently added to HTML and supported by most browsers. Canvas allows you to draw anything you want directly in the web browser without the use of plugins like Flash or Java.</section>
-          <aside class="notes">The principle of creating ./images with canvas is a bit similar to SVG. But unlike SVG canvas, we only draw with JavaScrypt. Also Canvas is bitmap and SVG is Vector</aside>
+          <aside class="notes">The principle of creating ../images with canvas is a bit similar to SVG. But unlike SVG canvas, we only draw with JavaScrypt. Also Canvas is bitmap and SVG is Vector</aside>
           <section>
             Difference between SVG and HTML5 Canvas:
             <ul>
@@ -35,7 +35,7 @@
           </section>
           <section>
             Canvas was First introduced in WebKit by Apple for the macOS Dashboard in 2004. Today, all major browsers support it.
-            <img data-src="./images/canIUse.png" />
+            <img data-src="../images/canIUse.png" />
             <aside class="notes">So as you can see all modern and old browsers support Canvas, even IE9 support.</aside>
           </section>
         </section>
@@ -65,7 +65,7 @@
             The grid
             <p>Before we can start drawing, we need to talk about the canvas grid or coordinate space. Our HTML skeleton from the previous page had a canvas element 150 pixels wide and 150 pixels high.</p>
             <p>Normally 1 unit in the grid corresponds to 1 pixel on the canvas. The origin of this grid is positioned in the top left corner at coordinate (0,0). All elements are placed relative to this origin. So the position of the top left corner of the blue square becomes x pixels from the left and y pixels from the top, at coordinate (x,y).</p>
-            <img data-src="./images/canvas_grid.png" />
+            <img data-src="../images/canvas_grid.png" />
           </section>
           <section>Now we can start draw simple shapes!</section>
         </section>
@@ -79,7 +79,7 @@
 						ctx.fillStyle = "gray";
 						ctx.fillRect(25, 25, 150, 100);
 						</code></pre>
-            <img class="fragment" height="300px" data-src="./images/rectangle.png" />
+            <img class="fragment" height="300px" data-src="../images/rectangle.png" />
             <aside class="notes">
               Painting on canvas is like painting on an white sheet. At the beginning we choose the color with which we will draw, and then we draw the shape. In this case, at the beginning we set the color of the brush to gray using the property fillStyle and then use fillrect to create a rectangle. Two first numbers - coordinates of start position, third and fourth - width and height of figure.
             </aside>
@@ -94,7 +94,7 @@
 						ctx.lineWidth = 4;
 						ctx.strokeRect(25, 150, 100, 100);
 						</code></pre>
-            <img class="fragment" height="300px" data-src="./images/empty_rectangle.png" />
+            <img class="fragment" height="300px" data-src="../images/empty_rectangle.png" />
           </section>
           <section>3.Filled rectangle with border</section>
           <section>
@@ -108,7 +108,7 @@
 						ctx.fillRect(150, 50, 230, 230);
 						ctx.strokeRect(150, 50, 230, 230);
 						</code></pre>
-            <img class="fragment" height="300px" data-src="./images/filled_rectangle.png" />
+            <img class="fragment" height="300px" data-src="../images/filled_rectangle.png" />
           </section>
           <section>4.Clear rectangle</section>
           <section>
@@ -137,7 +137,7 @@
 							ctx.strokeStyle = 'black';
 							ctx.stroke();    
 							</code></pre>
-            <img height="200px" data-src="./images/path.png" />
+            <img height="200px" data-src="../images/path.png" />
             <p>You can practice bezier lines at <a target="_blank" href="https://bezier.method.ac/">link</a></p>
           </section>
           <section>6.Circle</section>
@@ -154,7 +154,7 @@
 							ctx.arc(100, 350, 80, radiansStart, radiansEnd);
 							ctx.stroke();
 						</code></pre>
-            <img class="fragment" height="300px" data-src="./images/half_circle.png" />
+            <img class="fragment" height="300px" data-src="../images/half_circle.png" />
           </section>
           <section>
             <pre class="fragment"><code class="hljs" data-trim data-line-numbers="1-7">
@@ -166,7 +166,7 @@
 							ctx.fill();
 							ctx.stroke();
 						</code></pre>
-            <img class="fragment" height="300px" data-src="./images/full_circle.png" />
+            <img class="fragment" height="300px" data-src="../images/full_circle.png" />
           </section>
           <section>7.Text</section>
           <section>
@@ -188,7 +188,7 @@
             	ctx.strokeText(theString, 20, 175);
             	ctx.fillText(theString, 20, 175);
 							</code></pre>
-            <img height="250px" data-src="./images/text.png" />
+            <img height="250px" data-src="../images/text.png" />
           </section>
           <section>8. Save and Restore</section>
           <section>
@@ -207,7 +207,7 @@
 
 							ctx.fillRect(150, 40, 100, 100);
 							</code></pre>
-            <img class="fragment" height="250px" data-src="./images/SaveAndRestore.png" />
+            <img class="fragment" height="250px" data-src="../images/SaveAndRestore.png" />
             <aside class="notes">This example uses the save() method to save the current state and restore() to restore it later, so that you are able to draw a rect with the current state later.</aside>
           </section>
           <section>9. Canvas Animation</section>
